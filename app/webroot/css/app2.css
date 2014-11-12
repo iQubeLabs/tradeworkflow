@@ -1,0 +1,35 @@
+/* 
+    Document   : app2
+    Created on : Jul 1, 2014, 5:12:35 PM
+    Author     : perfectmak
+    Description:
+        This is the style for the new template.
+*/
+
+select{
+    background-color: #FFFFFF;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    padding: 4px 6px;
+    color: #555555;
+    vertical-align: middle;
+}
+
+.line3{
+    height: 4.5em; /* exactly 3 lines*/
+}
+
+.row-expired{
+    background-color: rgb(245, 120, 120);
+}
+
+.row-danger{
+    background-color: rgb(221, 168, 168);
+}
+
+.row-warning{
+    background-color: rgb(245, 219, 217);
+}

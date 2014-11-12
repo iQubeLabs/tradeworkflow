@@ -1,0 +1,21 @@
+DELETE FROM ports WHERE country_id = 154;
+
+INSERT INTO ports(name, country_id) VALUES('Apapa Sea Port', 154),
+	('Murtala Mohammed int\'l Airport', 154),
+	('Seme Land Border', 154),
+	('Idi Iroko Land Border', 154),
+	('Warri Sea Port', 154),
+	('Tincan Island Sea Port', 154),
+	('Grimaldi Port (PTML)', 154),
+	('Abuja int\'l Airport', 154),
+	('Kano int\'l Airport', 154),
+	('Free Trade Zone', 154),
+	('Jibiya Border Post', 154),
+	('Banki Border Post', 154),
+	('Port Harcourt Main Port', 154),
+	('Onne Sea Port', 154),
+	('Port Harcourt int\'l Airport', 154),
+	('Port Harcourt Free Trade Zone', 154),
+	('Onne Free Trade Zone', 154),
+	('Calabar Sea Port', 154),
+	('Ilorin int\'l Airport', 154);
