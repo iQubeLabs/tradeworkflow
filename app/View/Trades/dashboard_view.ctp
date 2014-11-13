@@ -56,7 +56,7 @@
                             <div class="timeline-body">
                                 <dl class="dl-horizontal">
                                     <dt>Form M Name:</dt>
-                                    <dd><?php echo $formM['FormM']['name'];?></dd>
+                                    <dd><?php echo $this->Html->link($formM['FormM']['name'], array('controller'=>'formMs', 'action'=>'view', $formM['FormM']['id']));?></dd>
                                     <dt>Date Registered:</dt>
                                     <dd><?php echo date('j M Y', strtotime($formM['FormM']['registration_date']));?></dd>
                                     <dt>Expiry Date:</dt>
@@ -110,6 +110,8 @@
                                        <dd><?php echo date("j M Y", strtotime($formM['Trade']['date_of_shipment']));?></dd>
                                        <dt>Expected Arrival Date:</dt>
                                        <dd><?php echo date("j M Y", strtotime($formM['Trade']['expected_arrival_time']));?></dd>
+                                       <dt>Description</dt>
+                                       <dd><?php echo $formM['Trade']['goods_description']; ?></dd>
                                        <dt>Shipping Line:</dt>
                                        <dd><?php echo $formM['Trade']['shipping_line'];?></dd>
                                        <dt>Vessel Name:</dt>

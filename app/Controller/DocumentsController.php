@@ -19,7 +19,7 @@ App::uses("Document", "Model");
  */
 class DocumentsController extends AppController
 {
-    public $uses = array("FormM", "Document", "Trade", "Courier", "Paar");
+    public $uses = array( "Document", "FormM", "Trade", "Courier", "Paar");
  
     public function beforeFilter()
     {
@@ -27,12 +27,12 @@ class DocumentsController extends AppController
         $this->navInfo['Nav.Document'] = "active";
     }
 
-    public function dashboard_test() 
+    /*public function dashboard_test() 
     {
-        $document = $this->Document->findById(1);
+        $document = $this->Document->getDocumentsArrived();
         debug($document);
         die();
-    }
+    }*/
     
     public function dashboard_index($status = null)
     {
@@ -146,11 +146,14 @@ class DocumentsController extends AppController
         
         if($this->request->is("post"))
         {
+           /* $email = (!is_null($this->Auth->user('email'))) ? 'Null' : 'Not Null';
+            echo $email;
+            die('ends here');*/
             if($this->Document->save($this->request->data))
             {
-                $cakeEvent = new CakeEvent("Customer.onDocumentUpdated", $this, array("documentId" => $id, "email" => $this->Auth->user('email')));
+                $cakeEvent = new CakeEvent("Customer.onDocumentUpdated", $this, array("documentId" => $id));
                 $this->getEventManager()->dispatch($cakeEvent);
-                $this->Session->setFlash("Courier has been status updated. The trader will be notified.");
+                $this->Session->setFlash("Courier status has been updated. The trader will be notified.");
             }
             else
             {
@@ -205,7 +208,7 @@ class DocumentsController extends AppController
     {
         if(is_null($status))
         {
-            $status = "progress";
+            $status = "all";
         }
         
         $this->navInfo['Nav.Document.'.$status] = "active";
@@ -268,5 +271,3 @@ class DocumentsController extends AppController
         $this->set("documents", $documents);
     }
 }
-
-?>

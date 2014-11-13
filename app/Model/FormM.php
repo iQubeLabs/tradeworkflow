@@ -75,23 +75,23 @@ class FormM extends AppModel {
         )
     );
 
-    public function getExpiringSoon($customerId) {
+    /*public function getExpiringSoon($customerId) {
         $result = array();
         $format = "Y-m-d";
         $today = time();
 
         $orderBy = array(
                 "FormM.expiration_date" => "ASC"
-            );
+        );
         
-        $monthsTime = date($format, strtotime("+30 day", $today));
-        $threeWeeksTime = date($format, strtotime("+21 day", $today));
-        $twoWeeksTime = date($format, strtotime("+14 day", $today));
-        $oneweeksTime = date($format, strtotime("+7 day", $today));
+        echo $monthsTime = date($format, strtotime("+30 day", $today));
+        echo $threeWeeksTime = date($format, strtotime("+21 day", $today));
+        echo $twoWeeksTime = date($format, strtotime("+14 day", $today));
+        echo $oneweeksTime = date($format, strtotime("+7 day", $today));
         
         $result['month'] = $this->find("all", array(
             "conditions" => array(
-                "DATE(FormM.expiration_date) =" => $monthsTime,
+                "DATE(FormM.expiration_date)" => $monthsTime,
                 "Trade.customer_id" => $customerId
             ),
             "joins" => array(
@@ -105,10 +105,12 @@ class FormM extends AppModel {
                     )),
             "order" => $orderBy)
         );
+
+        //debug($result['month']);
         
         $result['threeWeeks'] = $this->find("all", array(
             "conditions" => array(
-                "DATE(FormM.expiration_date) =" => $threeWeeksTime,
+                "DATE(FormM.expiration_date)" => $threeWeeksTime,
                 "Trade.customer_id" => $customerId
             ),
             "joins" => array(
@@ -125,7 +127,7 @@ class FormM extends AppModel {
         
         $result['twoWeeks'] = $this->find("all", array(
             "conditions" => array(
-                "DATE(FormM.expiration_date) =" => $twoWeeksTime,
+                "DATE(FormM.expiration_date)" => $twoWeeksTime,
                 "Trade.customer_id" => $customerId
             ),
             "joins" => array(
@@ -144,7 +146,7 @@ class FormM extends AppModel {
             "conditions" => array(
                 "DATE(FormM.expiration_date) <=" => $oneweeksTime,
                 "DATE(FormM.expiration_date) >" => date($format),
-                "Trade.customer_id" => $customerId
+                "FormM.customer_id" => $customerId
             ),
             "joins" => array(
                     array(
@@ -158,9 +160,110 @@ class FormM extends AppModel {
             ),
             "order" => $orderBy)
         );
+        //debug($result['oneWeek']);
         
+        debug($result['month']);
+        die();
+    }
+*/
+
+    public function getExpiringSoon($customerId) {
+
+        echo $customerId;
+        $result = array();
+        $format = "Y-m-d";
+        $today = time();
+
+        $orderBy = array(
+                "FormM.expiration_date ASC"
+            );
+        
+        echo $monthsTime = date($format, strtotime("+30 day", $today));
+        echo "<br>";
+        echo $threeWeeksTime = date($format, strtotime("+21 day", $today));
+        echo "<br>";
+        echo $twoWeeksTime = date($format, strtotime("+14 day", $today));
+        echo "<br>";
+        echo $oneweeksTime = date($format, strtotime("+7 day", $today));
+
+        $result['month'] = $this->find("all", array(
+            "conditions" => array(
+                "DATE(FormM.expiration_date) =" => $monthsTime,
+                "FormM.customer_id" => $customerId
+            ),
+            "joins" => array(
+                    array(
+                        'table' => 'trades',
+                        'alias' => 'Trade',
+                        'type' => 'LEFT',
+                        'conditions' => array(
+                            'FormM.id = Trade.form_m_id'
+                        )
+                    )
+                ),
+            "order" => $orderBy
+            )
+        );
+        
+        $result['threeWeeks'] = $this->find("all", array(
+            "conditions" => array(
+                "DATE(FormM.expiration_date) =" => $threeWeeksTime,
+                "FormM.customer_id" => $customerId
+            ),
+            "joins" => array(
+                    array(
+                        'table' => 'trades',
+                        'alias' => 'Trade',
+                        'type' => 'LEFT',
+                        'conditions' => array(
+                            'FormM.id = Trade.form_m_id'
+                        )
+                    )),
+            "order" => $orderBy)
+        );
+        
+        $result['twoWeeks'] = $this->find("all", array(
+            "conditions" => array(
+                "DATE(FormM.expiration_date) =" => $twoWeeksTime,
+                "FormM.customer_id" => $customerId
+            ),
+            "joins" => array(
+                    array(
+                        'table' => 'trades',
+                        'alias' => 'Trade',
+                        'type' => 'LEFT',
+                        'conditions' => array(
+                            'FormM.id = Trade.form_m_id'
+                        )
+                    )),
+            "order" => $orderBy)
+        );
+//        echo $oneweeksTime;
+
+        $result['oneWeek'] = $this->find("all", array(
+            "conditions" => array(
+                "DATE(FormM.expiration_date) <=" => $oneweeksTime,
+                "DATE(FormM.expiration_date) >" => date($format),
+                "FormM.customer_id" => $customerId
+            ),
+            "joins" => array(
+                    array(
+                        'table' => 'trades',
+                        'alias' => 'Trade',
+                        'type' => 'LEFT',
+                        'conditions' => array(
+                            'FormM.id = Trade.form_m_id'
+                        )
+                    )
+            ),
+            "order" => $orderBy)
+        );
+        
+        //debug($result);
+        //die();
         return $result;
     }
+
 
     public function getAllExpiringThisMonth()
     {

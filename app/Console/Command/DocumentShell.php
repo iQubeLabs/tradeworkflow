@@ -44,9 +44,9 @@ class DocumentShell extends AppShell
 
     private function notifyCustomersDocumentArrived()
     {
-        $documentsArrived = $this->Docyment->getDocumentsArrived();
+        //$documentsArrived = $this->Document->getDocumentsArrived();
 
-        
+
     }
 }
 

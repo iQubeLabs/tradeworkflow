@@ -12,7 +12,8 @@ class ClearingShell extends AppShell
     public $uses = array("Shipping", "Customer", "Trade", "Paar");
     
     public function main(){
-        $this->notifyCustomerOfClearing();
+        $this->out('Hello World!');
+        //$this->notifyCustomerOfClearing();
     }
     
     private function notifyCustomerOfClearing()

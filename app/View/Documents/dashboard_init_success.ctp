@@ -11,7 +11,7 @@
             <div>
                 <?php
                     echo $this->Html->link("View all Documents", array("controller" => "documents",
-                              "action" => "index"), array("class"=>"btn btn-success"));
+                              "action" => "index", 'all'), array("class"=>"btn btn-success"));
                 ?>
             </div>
         </div>

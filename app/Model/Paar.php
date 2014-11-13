@@ -56,10 +56,13 @@ class Paar extends AppModel {
             $result = $this->find("all", array(
                 "conditions"=> array(
                     "Paar.action" => Paar::ACTION_PENDING,
-                    "DATE(Paar.created) <=" => $threeDays,
+                    "DATE(Paar.created) >=" => $threeDays,
                     "Paar.customer_id"=>$customerId
                 )
             ));
+
+            //debug($result);
+            //die();
             
             return $result;
         }

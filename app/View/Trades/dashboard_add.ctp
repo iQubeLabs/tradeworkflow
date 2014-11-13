@@ -90,6 +90,24 @@
                 </div>
                 <br/>
                 <div class="row">
+                    <div class="form-group col-md-8">
+                        <label>Goods Description</label>
+                        <div class="">
+                            <textarea name="data[Trade][goods_description]" placeholder="Goods description. Max 100" style="resize: vertical" rows="4" maxlength="100" class="form-control" required></textarea>
+                        </div>
+                    </div>                    
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="form-group col-md-8">
+                        <label>Goods Specification</label>
+                        <div class="">
+                            <textarea name="data[Trade][goods_specification]" placeholder="Goods description. Max 100" style="resize: vertical" rows="4" maxlength="100" class="form-control" required></textarea>
+                        </div>
+                    </div>                    
+                </div>
+                <br/>
+                <div class="row">
                     <div class="col-md-8">
                         <div>
                             <label>Shipping Line</label>

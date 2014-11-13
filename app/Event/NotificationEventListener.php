@@ -79,25 +79,33 @@ class NotificationEventListener implements CakeEventListener{
     public function sendCustomerDocumentStatusUpdated(CakeEvent $cakeEvent)
     {
         $documentId = $cakeEvent->data['documentId'];
-        $toEmail = $cakeEvent->data['email'];
+        //echo $toEmail;
         $Document = ClassRegistry::init("Document");
         
-        $document = $Document->findById($documentId);
+        $document = $Document->getDocumentsArrived($documentId);
 
         $info = "Courier status has been updated";
         $link = Router::url(array("controller" => "documents", "action" => "view", "dashboard" => true, $documentId), true);
         $type = Notification::$ENUM_TYPE[Notification::TYPE_DOCUMENT_UPDATE];
-        $trackingNumber = $document['Document']['tracking_number'];
-        $status = $document['Document']['status'];
+        $trackingNumber = $document[0]['Document']['tracking_number'];
+        //echo '<br>';
+        $status = $document[0]['Document']['status'];
+        //echo '<br>';
         $statusMessage = ($status == 1) ? "is in transit" : "has arrived" ;
-        $additionalInfo = ($status == 1) ? "We advise you to start the processing of your PAAR immediately." : "You will be notified once we confirm that your document has arrived.";
-        $courier = $document['Courier']['name'];
+        //echo '<br>';
+        $additionalInfo = ($status == 1) ? "You will be notified once we confirm that your document has arrived." : "We advise you to start the processing of your PAAR immediately.";
+        //echo '<br>';
+        $courier = $document[0]['Courier']['name'];
+        //echo '<br>';
+        $toEmail = $document[0]['Customer']['email'];
         
+        //die('ends here');
         $this->Notification->create();
-        $this->Notification->saveNotification($document["Trade"]['customer_id'], $info, $link, $type);
+        $this->Notification->saveNotification($document[0]["Trade"]['customer_id'], $info, $link, $type);
 
         //TODO: Notify Customer via Email.
         $cakeEmail = new CakeEmail("gmail");
+        //debug($cakeEmail);
         $cakeEmail->template("documentstatusupdated")
                 ->subject("Document Status Updated")
                 ->emailFormat("text")
@@ -106,10 +114,12 @@ class NotificationEventListener implements CakeEventListener{
                     "documentStatus" => $statusMessage,
                     "trackingNumber" => $trackingNumber,
                     "courierName" => $courier,
-                    "additionalInfo" => $additionalInfo
+                    "additionalInfo" => $additionalInfo,
+                    "status" => $statusMessage
                 ))
                 ->to($toEmail)
                 ->send();
+        //die('ends here');
     }
     
     public function sendCustomerFormMExpired(CakeEvent $cakeEvent)
@@ -222,6 +232,7 @@ class NotificationEventListener implements CakeEventListener{
         $cakeEmail = new CakeEmail("gmail");
         $cakeEmail->template("admin_documentcreated")
                 ->emailFormat("text")
+                ->subject('Document Tracking has been initiated.')
                 ->viewVars(array(
                     "documentLink" => $link
                 ))

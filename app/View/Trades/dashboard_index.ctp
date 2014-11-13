@@ -32,11 +32,12 @@
                 <th>Date of Shipment</th>
                 <th>Arrival Date</th>
                 <th>Days Left</th>
+                <th>Description</th>
                 <th>Shipping Line</th>
                 <th>Vessel Name</th>
                 <th>Quantity</th>
                 <th>Amount(N)</th>
-                <th>Date Added</th>
+                <!-- <th>Date Added</th> -->
                 <th>Actions</th>
             <tr>
         </thead>
@@ -75,19 +76,20 @@
                     echo "<tr class=''>";
                     echo "<td>".$i."</td>";
                     echo "<td>".$formM['FormM']['name']."</td>";
-                    echo "<td>".$formM['Trade']['date_of_shipment']."</td>";
-                    echo "<td>".$formM['Trade']['expected_arrival_time']."</td>";
+                    echo "<td>".date('j M Y', strtotime($formM['Trade']['date_of_shipment']))."</td>";
+                    echo "<td>".date('j M Y', strtotime($formM['Trade']['expected_arrival_time']))."</td>";
                     if ($daysLeft > 0) {
                         echo "<td>$daysLeft days</td>";
                     } else {
                         echo "<td>Goods arrived</td>";
                     }
+                    echo "<td>".$formM['Trade']['goods_description']."</td>";
                     echo "<td>".$formM['Trade']['shipping_line']."</td>";
                     echo "<td>".$formM['Trade']['vessel_name']."</td>";
                     echo "<td>".$formM['Trade']['quantity']." ".$formM['Unit']['name']."</td>";
                     // echo "<td>".$formM['Unit']['name']."</td>";
                     echo "<td>".number_format((float)$formM['Trade']['amount'], 2, '.', '')."</td>";
-                    echo "<td>".$formM['Trade']['created']."</td>";
+                    //echo "<td>".$formM['Trade']['created']."</td>";
 
                     /*if($hasExpired)
                     {

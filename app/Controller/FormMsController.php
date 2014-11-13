@@ -26,6 +26,14 @@ class FormMsController extends AppController {
             parent::beforeFilter();
             $this->navInfo['Nav.FormM'] = "active";            
         }
+
+    public function dashboard_test() {
+        $id = $this->Auth->user('id');
+        $formMs = $this->FormM->getExpiringSoon($id);
+        $formMs = $this->FormM->find('all');
+        debug($formMs);
+        die('ends here');
+    }
         
 /**
  * dashboard_index method

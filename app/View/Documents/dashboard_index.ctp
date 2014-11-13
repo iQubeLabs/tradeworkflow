@@ -26,7 +26,7 @@
                     foreach($documents as $document)
                     {
                         echo "<tr>";
-                        echo "<td>".$document['Trade']['id']."</td>";
+                        echo "<td>".$this->Html->link($document['Trade']['id'], array('controller'=>'trades', 'action'=>'view', $document['Trade']['id'])) ."</td>";
                         echo "<td>".$document['Courier']['name']."</td>";
                         echo "<td>".$document['Document']['tracking_number']."</td>";
                         echo "<td>".$document['Courier']['contact_email']."</td>";

@@ -9,7 +9,7 @@ You are yet to confirm the status of the following Paar tracking process:
         echo $counter.") \r\n";
         $counter++;
 ?>
-        Trade Name: <?php echo $paar['Trade']['name'];?>
+        Trade Name: <?php echo $paar['Trade']['id'];?>
         Link to confirm: <?php echo $viewLink."/".$paar['Paar']['id'];?>
         
 <?php

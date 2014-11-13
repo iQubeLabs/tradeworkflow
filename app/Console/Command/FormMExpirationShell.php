@@ -26,6 +26,9 @@ class FormMExpirationShell extends AppShell {
         foreach($allCustomers as $customer)
         {
             $expiringFormMs = $this->FormM->getExpiringSoon($customer['Customer']['id']);
+
+            //debug($expiringFormMs);
+            //die('ends here!');
             
 //            echo json_encode($expiringFormMs);
             if(count($expiringFormMs['month'])||count($expiringFormMs['threeWeeks'])||count($expiringFormMs['twoWeeks'])||count($expiringFormMs['oneWeek']))

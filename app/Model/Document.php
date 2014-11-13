@@ -106,4 +106,43 @@ class Document extends AppModel {
 			'order' => ''
 		)*/
 	);
+
+	public function getDocumentsArrived($id = null){
+
+		$conditions = array(
+			'OR' => array(
+					'Document.status' => array(1, 2)
+			)
+		);
+
+		if (!is_null($id)) {
+			$conditions = array_merge($conditions, array('Document.id' => $id));
+		}
+
+		$arrivedDocuments = $this->find('all', array(
+				'conditions' => $conditions,
+				'fields' => array('Document.*', 'Trade.*', 'Customer.*', 'Courier.*'),
+				'joins' => array(
+					array(
+						'table' => 'trades',
+						'alias' => 'TradeJoin',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Document.trade_id = TradeJoin.id'
+						)
+					),
+					array(
+						'table' => 'customers',
+						'alias' => 'Customer',
+						'type' => 'INNER',
+						'conditions' => array(
+							'TradeJoin.customer_id = Customer.id'
+						)
+					)
+				)
+			)
+		);
+
+		return $arrivedDocuments;
+	}
 }

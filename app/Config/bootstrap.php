@@ -115,4 +115,4 @@ CakeLog::config('error', array(
 /**
  * Admin email Address
  */
-Configure::write("Admin.email", "damiperfect@gmail.com");
+Configure::write("Admin.email", "ade.oluwasegun1@gmail.com");
